@@ -17,7 +17,7 @@ class ExperimentConfig:
     
     # Base model config overrides
     max_steps: int = 500
-    batch_size: int = 24
+    batch_size: int = 16
     
     # Learning rate configurations
     use_lr_schedule: bool = True

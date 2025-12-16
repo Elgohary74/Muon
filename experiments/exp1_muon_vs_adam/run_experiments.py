@@ -10,6 +10,10 @@ import random
 from pathlib import Path
 import matplotlib.pyplot as plt
 import numpy as np
+import gc
+
+# Fix memory fragmentation
+os.environ["PYTORCH_CUDA_ALLOC_CONF"] = "expandable_segments:True"
 
 # Fix tokenizer parallelism warning when using DataLoader workers
 os.environ["TOKENIZERS_PARALLELISM"] = "false"
@@ -127,6 +131,14 @@ def run_single_experiment(exp_name: str, output_dir: str = "."):
     return metrics, history
 
 
+def cleanup_memory():
+    """Aggressive memory cleanup"""
+    if torch.cuda.is_available():
+        torch.cuda.empty_cache()
+        torch.cuda.ipc_collect()
+    gc.collect()
+
+
 def run_multiple_experiments(exp_names: list, output_dir: str = "."):
     """Run multiple experiments sequentially"""
     logger = setup_logging(log_dir="./logs")
@@ -150,7 +162,11 @@ def run_multiple_experiments(exp_names: list, output_dir: str = "."):
     for exp_name in exp_names:
         print(f"\n{'='*80}")
         print(f"Starting experiment {len(results)+1}/{len(exp_names)}: {exp_name}")
+        print(f"Starting experiment {len(results)+1}/{len(exp_names)}: {exp_name}")
         print(f"{'='*80}\n")
+        
+        # Ensure clean state
+        cleanup_memory()
         
         try:
             exp_config = get_experiment(exp_name)
@@ -183,7 +199,19 @@ def run_multiple_experiments(exp_names: list, output_dir: str = "."):
             traceback.print_exc()
             logger.error(f"Experiment '{exp_name}' failed: {e}")
             logger.error(traceback.format_exc())
+            logger.error(f"Experiment '{exp_name}' failed: {e}")
+            logger.error(traceback.format_exc())
             continue
+            
+        finally:
+            # Cleanup after experiment
+            if 'model' in locals():
+                del model
+            if 'metrics' in locals():
+                del metrics
+            if 'history' in locals():
+                del history
+            cleanup_memory()
     
     # Generate comparison report
     if len(results) > 1:
