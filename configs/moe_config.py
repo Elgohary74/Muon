@@ -14,7 +14,7 @@ class MoEModelConfig:
     qk_nope_dim: int | None = 128
     kv_lora_rank: int | None = 64
     v_dim: int | None = 128
-    batch_size: int = 24
+    batch_size: int = 16
     max_steps: int = 1000
 
     # Training parameters
