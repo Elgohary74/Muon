@@ -16,7 +16,7 @@ run our colab notebook https://github.com/Elgohary74/Muon/blob/main/Muon_experim
 Muon : 
 Blog/Paper: Muon: https://kellerjordan.github.io/posts/muon/
 
-Video Explanation: youtube.com/watch?si=xY1zOTrSmRSgDrEh&v=bO5nvE289ec&feature=youtu.be
+Video Explanation: https://www.youtube.com/watch?si=xY1zOTrSmRSgDrEh&v=bO5nvE289ec&feature=youtu.be
 
 Applied Research: Muon is Scalable for LLM Training( paper we applied ) : https://arxiv.org/pdf/2502.16982 
 
