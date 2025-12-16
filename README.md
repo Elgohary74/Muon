@@ -10,7 +10,7 @@ This repository implements a **Mixture of Experts (MoE)** transformer model trai
 *   **Dataset Integration**: Seamlessly integrates with HuggingFace Datasets (using `cosmopedia-v2` by default).
 
 ## how to run 
-run our colab notebook #Muon__experiments ( ensure you are using gpu )
+run our colab notebook https://github.com/Elgohary74/Muon/blob/main/Muon_experiment.ipynb ( ensure you are using gpu )
 
 ## resources 
 Muon : 
